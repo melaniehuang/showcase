@@ -1,8 +1,11 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { handle } from 'hono/vercel';
 import { createClient } from "@sanity/client";
 import { serveStatic } from "@hono/node-server/serve-static";
-import {toHTML} from '@portabletext/to-html'
+import {toHTML} from '@portabletext/to-html';
+
+export const runtime = "edge";
 
 export const client = createClient({
   projectId: "w6vnrsh5",

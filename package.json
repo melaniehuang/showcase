@@ -10,7 +10,8 @@
     "@hono/node-server": "^1.14.1",
     "@portabletext/to-html": "^2.0.14",
     "@sanity/client": "^7.1.0",
-    "hono": "^4.7.8"
+    "hono": "^4.7.8",
+    "vercel": "^41.7.6"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

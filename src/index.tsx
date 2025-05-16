@@ -14,7 +14,7 @@ export const client = createClient({
   apiVersion: "2025-05-07",
 });
 
-const app = new Hono();
+const app = new Hono().basePath('/dist');
 
 app.use("/public/*", serveStatic({ root: "./" }));
 
@@ -234,6 +234,7 @@ app.get("/contact", async (c) => {
   );
 });
 
+const handler = handle(app);
 // serve
 serve(
   {

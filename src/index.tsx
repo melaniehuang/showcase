@@ -246,3 +246,6 @@ serve(
     console.log(`Server is running on http://localhost:${info.port}`);
   },
 );
+
+export const GET = handle(app);
+export const POST = handle(app);

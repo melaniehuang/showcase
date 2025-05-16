@@ -148,7 +148,7 @@ app.get("/", async (c) => {
         </div>
 
         <div class="subject-container">
-          <h2>Game Design INFO30009</h2>
+          <h2>Game Design</h2>
           {gdMap.map((i: any) => {
             return (
               <div>

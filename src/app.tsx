@@ -10,7 +10,6 @@ export const client = createClient({
 });
 
 const app = new Hono();
-app.use("/public/*", serveStatic({ root: "./" }));
 // homepage
 app.get("/", async (c) => {
   const introduction = await client.fetch(`*[_type == "introduction"]{

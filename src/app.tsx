@@ -68,7 +68,7 @@ app.get("/", async (c) => {
   return c.html(
     <html>
       <head>
-        <link href="/style.css" rel="stylesheet" />
+        <link href="/balls.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Michroma&display=swap" rel="stylesheet"></link>

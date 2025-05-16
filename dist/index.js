@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { handle } from 'hono/vercel';
 import { createClient } from "@sanity/client";
 import { serveStatic } from "@hono/node-server/serve-static";
+//import app from "../dist/index.js";
 export const runtime = "edge";
 export const client = createClient({
     projectId: "w6vnrsh5",

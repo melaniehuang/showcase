@@ -4,6 +4,7 @@ import { handle } from 'hono/vercel';
 import { createClient } from "@sanity/client";
 import { serveStatic } from "@hono/node-server/serve-static";
 import {toHTML} from '@portabletext/to-html';
+//import app from "../dist/index.js";
 
 export const runtime = "edge";
 

@@ -12,8 +12,6 @@ export const client = createClient({
 
 const app = new Hono();
 
-app.use("/public/*", serveStatic({ root: "./" }));
-
 // homepage
 app.get("/", async (c) => {
   // const projects = await client.fetch(`*[_type == "project"] {
@@ -70,11 +68,11 @@ app.get("/", async (c) => {
   return c.html(
     <html>
       <head>
-        <link href="/public/style.css" rel="stylesheet" />
+        <link href="/style.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Michroma&display=swap" rel="stylesheet"></link>
-        <script src="/public/js/accordion.js" />
+        <script src="/js/accordion.js" />
       </head>
       <body>
         {/* <nav>
@@ -217,7 +215,7 @@ app.get("/contact", async (c) => {
   return c.html(
     <html>
       <head>
-        <link href="/public/style.css" rel="stylesheet" />
+        <link href="/style.css" rel="stylesheet" />
       </head>
       <body>
         <nav>

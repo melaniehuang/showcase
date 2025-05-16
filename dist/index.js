@@ -1,15 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs } from "hono/jsx/jsx-runtime";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { handle } from 'hono/vercel';
 import { createClient } from "@sanity/client";
 import { serveStatic } from "@hono/node-server/serve-static";
+export const runtime = "edge";
 export const client = createClient({
     projectId: "w6vnrsh5",
     dataset: "production",
     useCdn: false,
     apiVersion: "2025-05-07",
 });
-const app = new Hono();
+const app = new Hono().basePath('/');
 app.use("/public/*", serveStatic({ root: "./" }));
 // homepage
 app.get("/", async (c) => {
@@ -77,6 +79,7 @@ app.get("/", async (c) => {
 app.get("/contact", async (c) => {
     return c.html(_jsxs("html", { children: [_jsx("head", { children: _jsx("link", { href: "/public/style.css", rel: "stylesheet" }) }), _jsxs("body", { children: [_jsxs("nav", { children: [_jsx("a", { href: "/", children: "Home" }), _jsx("a", { href: "/contact", children: "Contact" })] }), _jsx("h1", { children: "Contact" })] })] }));
 });
+const handler = handle(app);
 // serve
 serve({
     fetch: app.fetch,

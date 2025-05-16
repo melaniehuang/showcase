@@ -14,7 +14,7 @@ export const client = createClient({
   apiVersion: "2025-05-07",
 });
 
-const app = new Hono().basePath('/dist');
+const app = new Hono().basePath('/');
 
 app.use("/public/*", serveStatic({ root: "./" }));
 

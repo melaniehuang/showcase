@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { createClient } from "@sanity/client";
-import { serveStatic } from "@hono/node-server/serve-static";
 
 export const client = createClient({
   projectId: "w6vnrsh5",
@@ -62,7 +61,6 @@ app.get("/", async (c) => {
         <script src="/js/accordion.js" />
       </head>
       <body>
-        <h1>DOES THIS WORK???</h1>  
         {introduction.map((i: any) => {
           return (
             <div>

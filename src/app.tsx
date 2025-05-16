@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { createClient } from "@sanity/client";
 import { serveStatic } from "@hono/node-server/serve-static";
-import {toHTML} from '@portabletext/to-html';
 
 export const client = createClient({
   projectId: "w6vnrsh5",
@@ -14,15 +13,6 @@ const app = new Hono();
 app.use("/public/*", serveStatic({ root: "./" }));
 // homepage
 app.get("/", async (c) => {
-  // const projects = await client.fetch(`*[_type == "project"] {
-  //   name,
-  //   id,
-  //   "image": image.asset->url,
-  //   "students": pt::text(students),
-  //   "research": pt::text(research),
-  //   "description": pt::text(description),
-  //   "materials": pt::text(materials),
-  // }`);
   const introduction = await client.fetch(`*[_type == "introduction"]{
     name,
     "image": image.asset->url,
@@ -63,22 +53,16 @@ app.get("/", async (c) => {
     description,
     materials,
   }`);
-  // console.log(projects);
-  // LOOK INTO THIS TO RENDER BLOCKS https://github.com/portabletext/to-html
   return c.html(
     <html>
       <head>
-        <link href="/public/style.css" rel="stylesheet" />
+        <link href="/style.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Michroma&display=swap" rel="stylesheet"></link>
-        <script src="public/js/accordion.js" />
+        <script src="/js/accordion.js" />
       </head>
       <body>
-        {/* <nav>
-          <a href="/">Home</a>
-          <a href="/contact">Contact</a>
-        </nav> */}
         <h1>DOES THIS WORK???</h1>  
         {introduction.map((i: any) => {
           return (

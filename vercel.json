@@ -2,10 +2,10 @@
   "rewrites": [
     {
       "source": "/src/(.*)",
-      "destination": "/src"
+      "destination": "/dist"
     }
   ],
   "redirects": [
-    { "source": "/", "destination": "/src", "permanent": false }
+    { "source": "/", "destination": "/dist", "permanent": false }
   ]
 }

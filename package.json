@@ -2,7 +2,7 @@
   "name": "m",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.tsx",
+    "dev": "tsx watch src/app.tsx",
     "build": "tsc && tsc-alias",
     "start": "node dist/app.js"
   },

@@ -1,4 +1,4 @@
-/* Base styles for mobile (320px - 768px) */
+/* Mobile base styles */
 
 html {
   font-family: sans-serif;
@@ -8,20 +8,10 @@ body {
   margin: 0;
   padding: 0;
   background: black;
-  font-size:18px;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-family: "Archivo", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: regular;
-  font-style: normal;
-  font-variation-settings:"wdth" 100;
   color:white;
-  line-height: 1.4em;
-}
-
-.students {
-  font-size: 14px;
-  color: rgb(170, 170, 170);
-  font-style: italic;
 }
 
 h1,h2,h3 {
@@ -30,31 +20,57 @@ h1,h2,h3 {
   font-style: normal;
   text-transform:uppercase;
   line-height: 1.2em;
-  letter-spacing: 1.4;  
-}
-
-h1 {
-  font-size: 2.5em;
+  letter-spacing: 1.4;
+  color:white;
 }
 
 h2 {
-  font-size: 2.2em;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  margin: 6% 0%;
 }
 
 h3 {
-  font-size: 1.1em;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 h4 {
   font-family: "Archivo", sans-serif;
   margin:0;
-  padding-top: 12px;
-  font-size: 16px;
-  line-height: 1.2em;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color:white;
 }
 
 img, svg {
-  width: 100%;
+  width:100%;
+  margin: 0;
+}
+
+.intro-image {
+  width: 94%;
+  margin: 0% 3%;
+}
+
+.quicklinks {
+  margin: 6% 0%;
+}
+
+ul {
+  list-style: none;
+  margin:0% 3%;
+  padding:0;
+}
+
+li {
+  height:32px;
+}
+
+.quicklinks a {
+  text-decoration: none;
+  color: white;
+  text-decoration: underline;
 }
 
 .mapImg {
@@ -63,19 +79,13 @@ img, svg {
 
 svg {
   fill:white;
+  width:100%;
+  height:auto;
+  margin: 60% 0%;
 }
 
-nav a {
-  padding-right: 10px;
-}
-
-.intro-container {
-  padding: 100px 3%;
-  /* columns: 1; */
-}
-
-.subject-container{
-  margin:3%;
+.subject-container {
+  margin:60% 3%;
 }
 
 .container {
@@ -83,15 +93,23 @@ nav a {
   flex-wrap: wrap;
 }
 
+.container > div {
+  padding-top: 6%;
+  padding-bottom: 6%;
+}
+
+.students {
+  color: rgb(170, 170, 170);
+  font-style: italic;
+}
+
 .people-container {
   display: flex;
   flex-wrap: wrap;
-  margin:3%;
+  margin:60% 3%;
 }
 
-/* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-  font-size:18px;
   background:none;
   cursor: pointer;
   width: 100%;
@@ -99,44 +117,57 @@ nav a {
   border: none;
   outline: none;
   transition: 0.4s;
-  color:white;
   padding:0;
 }
 
 .readmore {
-  font-size: 12px;
   color: rgb(170, 170, 170);
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
+.accordion:hover {
+  opacity: 0.6;
 }
 
-/* Style the accordion panel. Note: hidden by default */
 .panel {
   display: none;
   overflow: hidden;
-  font-size:14px;
 }
 
-.project:after {
-}
-
-.project .active:after {
+.accordion img {
+  margin-bottom:3%;
 }
 
 /* Tablets and small laptops (769px - 1024px) */
 /* Large desktops and high-resolution screens (1025px and up) */
-@media (min-width: 769px) {
-  body {
-    background: black;
+@media (min-width: 1081px) {
+  h2 {
+    font-size: 42px;
   }
 
-  .item-1 {
-    max-width: 50%;
-    padding-bottom: 60px;
+  h3 {
+    font-size: 24px;
   }
 
+  h4 {
+    font-size: 20px;
+  }
+
+  svg {
+    width: 96%;
+    height:auto;
+    margin: 10% 2%;
+  }
+  
+  .subject-container{
+    margin: 40% 3%;
+  }
+
+  .students {
+  }
+
+  .readmore {
+  }
+  
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -157,36 +188,16 @@ nav a {
   .people-container > div {
     width: 30%;
     padding-right: 3%;
-  }  
+  }
+
+  .panel {
+  }
 }
 
 /* Extra-large screens (1440px and up) */
 @media (min-width: 1440px) {
-  body {
-    background: black;
-  }
-
   h2 {
-    font-size: 2.8em;
-  }
-
-  .intro-container {
-    display: grid;
-    grid-template-columns: 35% 60%;
-    grid-gap: 5%;
-    padding: 200px 3%;
-  }
-
-  .item-1 {
-    /* grid-area: 1 / 1 / 2 / 2; */
-    align-self:flex-end;
-    padding-top:800px;
-    max-width: 100%;
-  }
-
-  .item-2 {
-    /* grid-area: 1 / 2 / 2 / 3; */
-    align-self: top;
+    font-size:54px;
   }
 
   .container {
@@ -197,6 +208,8 @@ nav a {
   .container > div {
     width: 22%;
     padding-right: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
   }
   
   .people-container {

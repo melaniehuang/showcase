@@ -4,9 +4,13 @@ window.onload = function () {
 
     for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function() {
-        /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
         this.classList.toggle("active");
+        var myElement = this.querySelector(".readMore");
+        if (myElement.innerHTML == "Read more") {
+            myElement.innerHTML = "Read less";
+        } else if (myElement.innerHTML == "Read less") {
+            myElement.innerHTML = "Read more";
+        }
 
         /* Toggle between hiding and showing the active panel */
         var panel = this.nextElementSibling;

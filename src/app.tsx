@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 import { createClient } from "@sanity/client";
+import { serve } from "@hono/node-server";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 export const client = createClient({
   projectId: "w6vnrsh5",
@@ -9,6 +11,7 @@ export const client = createClient({
 });
 
 const app = new Hono();
+app.use("/public/*", serveStatic({ root: "./" }));
 // homepage
 app.get("/", async (c) => {
   const introduction = await client.fetch(`*[_type == "introduction"]{
@@ -16,23 +19,19 @@ app.get("/", async (c) => {
     "image": image.asset->url,
     "paragraphs": introduction[].children[].text,
   }`);
-
   const dniMap = await client.fetch(`*[_type == "map" && subject == "Designing Novel Interactions"]{
     name,
     "image": image.asset->url,
   }`);
-
   const gdMap = await client.fetch(`*[_type == "map" && subject == "Game Design"]{
     name,
     "image": image.asset->url,
   }`);
-
   const people = await client.fetch(`*[_type == "person"]| order(orderRank){
     name,
     biography,
     subject
   }`);
-
   const dniprojects = await client.fetch(`*[_type == "project" && subject == "Designing Novel Interactions"]| order(orderRank){
     name,
     map,
@@ -54,6 +53,7 @@ app.get("/", async (c) => {
   return c.html(
     <html>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link href="/style.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
@@ -95,28 +95,21 @@ app.get("/", async (c) => {
               <path d="M1595.62 394.133C1595.62 386.112 1595.35 379.504 1594.8 374.309C1594.26 369.113 1593.23 365.012 1591.73 362.004C1590.27 358.996 1588.13 356.809 1585.3 355.441C1582.52 354.029 1578.9 353.14 1574.43 352.775C1569.97 352.365 1564.48 352.16 1557.96 352.16H1543.88C1537.36 352.16 1531.87 352.365 1527.4 352.775C1522.94 353.14 1519.29 354.029 1516.46 355.441C1513.68 356.809 1511.54 358.996 1510.04 362.004C1508.58 365.012 1507.58 369.113 1507.03 374.309C1506.48 379.504 1506.21 386.112 1506.21 394.133V396.867C1506.21 404.615 1506.48 411.04 1507.03 416.145C1507.58 421.249 1508.58 425.327 1510.04 428.381C1511.54 431.434 1513.68 433.713 1516.46 435.217C1519.29 436.721 1522.94 437.701 1527.4 438.156C1531.87 438.612 1537.36 438.84 1543.88 438.84H1557.96C1564.48 438.84 1569.97 438.612 1574.43 438.156C1578.9 437.701 1582.52 436.721 1585.3 435.217C1588.13 433.713 1590.27 431.434 1591.73 428.381C1593.23 425.327 1594.26 421.249 1594.8 416.145C1595.35 411.04 1595.62 404.615 1595.62 396.867V394.133ZM1493.09 396.867V394.133C1493.09 384.836 1493.54 377.043 1494.45 370.754C1495.36 364.419 1496.94 359.27 1499.17 355.305C1501.4 351.34 1504.43 348.309 1508.26 346.213C1512.14 344.117 1516.99 342.704 1522.82 341.975C1528.66 341.2 1535.67 340.812 1543.88 340.812H1557.96C1566.16 340.812 1573.18 341.2 1579.01 341.975C1584.85 342.704 1589.68 344.117 1593.51 346.213C1597.38 348.309 1600.43 351.34 1602.67 355.305C1604.9 359.27 1606.47 364.419 1607.38 370.754C1608.29 377.043 1608.75 384.836 1608.75 394.133V396.867C1608.75 408.124 1608 417.261 1606.49 424.279C1605.04 431.298 1602.44 436.675 1598.7 440.412C1595.01 444.149 1589.86 446.701 1583.25 448.068C1576.64 449.481 1568.21 450.188 1557.96 450.188H1543.88C1533.62 450.188 1525.19 449.481 1518.58 448.068C1511.98 446.701 1506.8 444.149 1503.07 440.412C1499.38 436.675 1496.78 431.298 1495.27 424.279C1493.82 417.261 1493.09 408.124 1493.09 396.867Z" fill=" "/>
               <path d="M1362.52 422.639C1362.52 416.532 1363.09 411.405 1364.23 407.258C1365.37 403.111 1367.56 399.784 1370.79 397.277C1374.03 394.771 1378.72 392.971 1384.87 391.877C1391.07 390.738 1399.18 390.145 1409.21 390.1H1433.68C1440.79 390.1 1446.33 389.872 1450.29 389.416C1454.3 388.915 1457.22 388.003 1459.04 386.682C1460.87 385.314 1461.98 383.355 1462.39 380.803C1462.85 378.205 1463.08 374.81 1463.08 370.617C1463.08 366.242 1462.67 362.801 1461.85 360.295C1461.03 357.788 1459.41 355.965 1456.99 354.826C1454.58 353.687 1451 352.958 1446.26 352.639C1441.57 352.32 1435.32 352.16 1427.53 352.16H1412.63C1404.47 352.16 1397.93 352.32 1393.01 352.639C1388.13 352.958 1384.44 353.687 1381.93 354.826C1379.43 355.965 1377.74 357.788 1376.88 360.295C1376.05 362.801 1375.64 366.242 1375.64 370.617H1362.52C1362.52 364.647 1363.18 359.725 1364.5 355.852C1365.87 351.978 1368.31 348.947 1371.82 346.76C1375.37 344.572 1380.38 343.046 1386.86 342.18C1393.33 341.268 1401.69 340.812 1411.94 340.812H1428.21C1438.1 340.812 1446.19 341.268 1452.48 342.18C1458.77 343.046 1463.62 344.572 1467.04 346.76C1470.5 348.947 1472.9 351.978 1474.22 355.852C1475.54 359.725 1476.2 364.647 1476.2 370.617C1476.2 378.273 1475.18 384.335 1473.12 388.801C1471.12 393.221 1467.57 396.389 1462.46 398.303C1457.4 400.171 1450.25 401.105 1441 401.105H1410.92C1402.76 401.105 1396.31 401.379 1391.57 401.926C1386.83 402.473 1383.32 403.521 1381.04 405.07C1378.77 406.574 1377.29 408.739 1376.6 411.564C1375.96 414.39 1375.64 418.081 1375.64 422.639V437.062H1472.03V448H1362.52V422.639Z" fill=" "/>
               </svg>
-              <div class = "intro-container">
-                <div class = "item item-1">
-                  <p>{i.paragraphs[0]}</p>
-                  <p>{i.paragraphs[1]}</p>
-                  <p>{i.paragraphs[2]}</p>
-                  <p>{i.paragraphs[3]}</p>
-                  <p>{i.paragraphs[4]}</p>
-                  <p>{i.paragraphs[5]}</p>
-                  <p>{i.paragraphs[6]}</p>
-                  <p>{i.paragraphs[7]}</p>
-                  <p>{i.paragraphs[8]}</p>
-                  <p>{i.paragraphs[9]}</p>
-                </div>
-                <div class = "item item-2">
-                  <img src={i.image} />
-                </div>
+              <div class="quicklinks">
+                <ul>
+                  <li>Interactive prototypes by:</li>
+                  <li><a href="#dni">[INFO90003] Designing Novel Interactions</a></li>
+                  <li><a href="#games">[INFO30009] Games Design</a></li>
+                </ul>
+              </div>
+              <div class = "intro-image">
+                <img src={i.image}></img>
               </div>
             </div>
-          );
+          )
           })}
 
-          <div class="subject-container">
+          <div id="dni" class="subject-container">
           <h2>Designing Novel Interactions</h2>          
           {dniMap.map((i: any) => {
             return (
@@ -124,15 +117,15 @@ app.get("/", async (c) => {
                 <img class="mapImg" src={i.image} />
               </div>
             )
-          })};
+          })}
 
           <div class="container">
           {dniprojects.map((p: any) => {
               return (
                 <div>
                   <button class="accordion">
-                    <h3 class="project">{p.map} {p.name}</h3>
                     <img src={p.image} />
+                    <h3 class="project">{p.map} {p.name}</h3>
                     <h4>{p.research}</h4>
                     <p class="students">{p.students}</p>
                     <p class="readmore">Read more</p>
@@ -142,12 +135,12 @@ app.get("/", async (c) => {
                     <p>{p.materials}</p>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
 
-        <div class="subject-container">
+        <div id="games" class="subject-container">
           <h2>Game Design</h2>
           {gdMap.map((i: any) => {
             return (
@@ -161,8 +154,8 @@ app.get("/", async (c) => {
               return (
                 <div>
                   <button class="accordion">
-                    <h3 class="project">{p.map} {p.name}</h3>
                     <img src={p.image} />
+                    <h3 class="project">{p.map} {p.name}</h3>
                     <h4>{p.research}</h4>
                     <p class="students">{p.students}</p>
                     <p class="readmore">Read more</p>
@@ -172,7 +165,7 @@ app.get("/", async (c) => {
                     <p>{p.materials}</p>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -208,5 +201,15 @@ app.get("/", async (c) => {
 //     </html>,
 //   );
 // });
+
+serve(
+  {
+    fetch: app.fetch,
+    port: 3000,
+  },
+  (info) => {
+    console.log(`Server is running on http://localhost:${info.port}`);
+  },
+);
 
 export default app;
